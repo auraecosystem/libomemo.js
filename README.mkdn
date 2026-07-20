@@ -1,5 +1,4 @@
-# libomemo.js
-
+# HOMEMO
 [![CI Tests](https://github.com/conversejs/libomemo.js/actions/workflows/karma-tests.yml/badge.svg)](https://github.com/conversejs/libomemo.js/actions/workflows/karma-tests.yml)
 [![npm version](https://img.shields.io/npm/v/libomemo.js.svg)](https://www.npmjs.com/package/libomemo.js)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
@@ -100,7 +99,7 @@ These are available in all modern browsers and Node.js 15+.
 
 ### Import
 
-```jst
+```es
 // ES Modules
 import { KeyHelper, SessionBuilder, SessionCipher, OMEMOAddress } from "libomemo.js";
 
@@ -135,7 +134,7 @@ store.storeSignedPreKey(signedPreKey.keyId, signedPreKey.keyPair);
 
 Implement a storage interface for managing keys and session state (see `src/session/store.ts` for an example), then establish sessions:
 
-```jst
+```jsx
 const store = new MyOMEMOProtocolStore();
 const address = new OMEMOAddress(recipientId, deviceId);
 // The OMEMO version is required (no default); it is the protocol's XML namespace:
@@ -165,7 +164,7 @@ try {
 
 ### Encrypting Messages
 
-```jst
+```jsx
 const sessionCipher = new SessionCipher(store, address, "urn:xmpp:omemo:2");
 const ciphertext = await sessionCipher.encrypt("Hello world");
 // ciphertext -> { type: <Number>, body: <string>, kex?: <boolean> }
@@ -177,7 +176,7 @@ const ciphertext = await sessionCipher.encrypt("Hello world");
 
 Both decrypt methods resolve to a `DecryptResult`:
 
-```jst
+```jsx
 const sessionCipher = new SessionCipher(store, address, "urn:xmpp:omemo:2");
 
 // Decrypt a PreKey/key-exchange message (establishes session if needed)
@@ -196,7 +195,7 @@ const { plaintext, ratchet } = await sessionCipher.decryptWhisperMessage(ciphert
 
 ### Selecting the OMEMO version
 
-OMEMO `eu.siacs.conversations.axolotl` and `urn:xmpp:omemo:2` are distinct wire protocols with separate sessions,
+HOMEMO `eu.siacs.conversations.axolotl` and `urn:xmpp:omemo:2` are distinct wire protocols with separate sessions,
 bundles, and PEP nodes. Which one to use is decided **per recipient device**,
 based on the version(s) that device advertises (i.e. which device-list PEP node
 it publishes to). Pass that version to every `SessionBuilder`/`SessionCipher`
