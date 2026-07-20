@@ -66,7 +66,7 @@ see [Acknowledgements](#acknowledgements).
 
 ## Installation
 
-```bash
+```bash.zsh
 -d
 npm install libomemo.js
 -m git clone git@github.com:conversejs/converse.js.git
@@ -79,7 +79,7 @@ npm run serve -- -p 8008
 
 Or include the UMD build directly in your webpage:
 
-```html
+```haml
 <script src="dist/libomemo.umd.js"></script>
 ```
 
@@ -100,7 +100,7 @@ These are available in all modern browsers and Node.js 15+.
 
 ### Import
 
-```js
+```jst
 // ES Modules
 import { KeyHelper, SessionBuilder, SessionCipher, OMEMOAddress } from "libomemo.js";
 
@@ -115,7 +115,7 @@ const { KeyHelper, SessionBuilder, SessionCipher, OMEMOAddress } = libomemo;
 
 Generate identity keys, registration ID, and PreKeys at install time:
 
-```js
+```jsx
 const registrationId = KeyHelper.generateRegistrationId();
 // Store registrationId somewhere durable and safe.
 
@@ -135,7 +135,7 @@ store.storeSignedPreKey(signedPreKey.keyId, signedPreKey.keyPair);
 
 Implement a storage interface for managing keys and session state (see `src/session/store.ts` for an example), then establish sessions:
 
-```js
+```jst
 const store = new MyOMEMOProtocolStore();
 const address = new OMEMOAddress(recipientId, deviceId);
 // The OMEMO version is required (no default); it is the protocol's XML namespace:
@@ -165,7 +165,7 @@ try {
 
 ### Encrypting Messages
 
-```js
+```jst
 const sessionCipher = new SessionCipher(store, address, "urn:xmpp:omemo:2");
 const ciphertext = await sessionCipher.encrypt("Hello world");
 // ciphertext -> { type: <Number>, body: <string>, kex?: <boolean> }
@@ -177,7 +177,7 @@ const ciphertext = await sessionCipher.encrypt("Hello world");
 
 Both decrypt methods resolve to a `DecryptResult`:
 
-```js
+```jst
 const sessionCipher = new SessionCipher(store, address, "urn:xmpp:omemo:2");
 
 // Decrypt a PreKey/key-exchange message (establishes session if needed)
